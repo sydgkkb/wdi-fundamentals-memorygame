@@ -25,30 +25,34 @@ var cards = [
 
 var cardsInPlay = [];
 var checkForMatch = function () {
+	//cardElement.setAttribute('src',"images/back.png");
+	if(cardsInPlay.length === 2){
 		if (cardsInPlay[0].rank === cardsInPlay[1].rank) {
 	//console.log("You found a match!");
 	alert("You found a match!");
-	console.log(cardsInPlay[0].suit);
-	console.log(cardsInPlay[0].cardImage);
-	console.log(cardsInPlay[1].suit);
-	console.log(cardsInPlay[1].cardImage);	
+	/*
+	alert(cardsInPlay[0].suit);
+	alert(cardsInPlay[0].cardImage);
+	alert(cardsInPlay[1].suit);
+	alert(cardsInPlay[1].cardImage);	*/
 	} else {
-	console.log("Sorry, try again.");
+	//console.log("Sorry, try again.");
 	alert("Sorry, try again");
-			console.log(cardsInPlay[0].suit);
+	/*		console.log(cardsInPlay[0].suit);
 	console.log(cardsInPlay[0].cardImage);
 		console.log(cardsInPlay[1].suit);
-	console.log(cardsInPlay[1].cardImage);
+	console.log(cardsInPlay[1].cardImage);*/
 	}
+}else{
+	alert("Count is not 2");
 }
-var flipCard = function (cardId) {
-	console.log("User flipped " + cards[cardId].rank);
-	cardsInPlay.push(cards[cardId]);
-};
+}
 
+/*
 flipCard(0);
 flipCard(2);
-checkForMatch();
+*/
+//checkForMatch();
 
 /*	
 	if(cardsInPlay.length === 2){
@@ -60,6 +64,40 @@ checkForMatch();
 		}
 	}
 	*/
+
+	var flipCard = function() {
+		var cardId = this.getAttribute('data-id');
+		//this.setAttribute('src',cardId.cardImage);
+		//alert(this.getAttribute('cardImage'));
+		//alert(this.getAttribute('src'));
+		this.setAttribute('src',cards[cardId].cardImage);
+		cardsInPlay.push(cards[cardId]);
+		//alert(cardsInPlay.length);
+		if(cardsInPlay.length === 2) {
+			checkForMatch();
+		}
+
+	}
+
+	var createBoard = function(){
+	var gameBoard = document.getElementById('game-board');
+		for (var i = 0; i < cards.length; i++) {			
+    		var cardElement = document.createElement('img');
+    		cardElement.setAttribute('src',"images/back.png");
+    		cardElement.setAttribute('data-id',i);
+    		cardElement.addEventListener('click',flipCard);
+    		gameBoard.appendChild(cardElement);
+    		//cardElement.addEventListener('click',flipcard);
+    		//document.getElementById('game-board').appendChild(cardElement); 
+		}
+	}
+
+	//document.getElementsByTagName('button')[0].addEventListener('click', addItem); 
+	//cardElement.addEventListener('click',flipcard);
+
+	createBoard();
+	//checkForMatch();
+
 
 
 
